@@ -24,7 +24,7 @@ then
 		else
 			_nssid="$_mssid"
 		fi
-		echo "SSID SIZE: $_nssid"
+		echo "SSID SIZE: $_nssid SSIDs would be supported"
 	fi
 fi
 
