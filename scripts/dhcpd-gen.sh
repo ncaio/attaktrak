@@ -7,6 +7,14 @@ _count="1"
 #
 #
 #
+if [ -z "$_nssid" ]
+then
+	echo "ERRO: ARG NOT FOUND. TRY ./dhcpd-gen.sh n"
+	exit 1
+fi
+#
+#
+#
 echo "
 #
 #	DHCPD.CONF HEADER
