@@ -1,0 +1,17 @@
+#
+#	DHCPD.CONF HEADER
+#
+ddns-update-style none;
+ignore client-updates;
+authoritative;
+default-lease-time 600;
+max-lease-time 3600;
+#
+#	/30 TO MANAGEMENT SSID
+#
+subnet 10.10.0.0 netmask 255.255.255.252 {
+	range 10.10.0.2 10.10.0.2;
+}
+#
+#
+#
