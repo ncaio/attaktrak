@@ -2,7 +2,7 @@
 #
 #
 #
-_interface="$(iw dev | grep ^phy | tr -d '\#' | paste -s -d " ")"
+_interface="$(iw dev | grep ^phy | paste -s -d " ")"
 #
 #
 #
@@ -11,7 +11,9 @@ then
 	for i in $_interface
 	do
 		echo "--------------------------------------"
-		echo "INTERFACE: $i"
+		_interw="$(iw dev | grep -A1 $i | awk '/Interface/ {print $2}')"
+		echo "INTERFACE $i is $_interw"
+		i="$(echo $i| tr -d '\#')"
 		_mode="$(iw phy "$i" info | grep -A12 "Supported interface modes:" | grep -B 12 "Band 1:")"
 		echo "$_mode" | grep -q "* monitor"
 		_key="$?"
