@@ -1,0 +1,11 @@
+# Change wlan0 to your wireless device
+interface="$_interw"
+# Tell hostapd what your new MAC address is
+bssid="$_macm"
+driver=nl80211
+ssid=RaspiGET
+channel=3
+wpa=2
+wpa_passphrase=raspgetpi
+wpa_key_mgmt=WPA-PSK
+rsn_pairwise=CCMP

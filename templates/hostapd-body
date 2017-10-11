@@ -1,0 +1,5 @@
+#
+#	SSID $_ssidn
+#
+bss="$_interw"_"$_bit"
+ssid="$_ssidn"
