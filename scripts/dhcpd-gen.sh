@@ -38,7 +38,7 @@ _bit="1"
 #
 #
 #
-for _i in $(cat ../templates/SSID|head -n "$_nssid")
+for _i in $(cat ../templates/SSID|head -n $(($_nssid-1)))
 do 
 	echo "
 #
