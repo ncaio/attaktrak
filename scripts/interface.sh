@@ -12,7 +12,9 @@ then
 	do
 		echo "--------------------------------------"
 		_interw="$(iw dev | grep -A1 $i | awk '/Interface/ {print $2}')"
-		echo "INTERFACE $i is $_interw"
+		_mac="$(iw dev | grep -A5 $i | awk '/addr/ {print $2}')"
+		_macm="$(echo ${_mac:0:1}2${_mac:2:14}0)"
+		echo "INTERFACE $i is $_interw with MAC ADDRESS $_mac - new MAC ADDRESS is: $_macm"
 		i="$(echo $i| tr -d '\#')"
 		_mode="$(iw phy "$i" info | grep -A12 "Supported interface modes:" | grep -B 12 "Band 1:")"
 		echo "$_mode" | grep -q "* monitor"
