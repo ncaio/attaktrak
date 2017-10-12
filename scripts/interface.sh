@@ -14,7 +14,7 @@ then
 		_interw="$(iw dev | grep -A5 $i | awk '/Interface/ {print $2}')"
 		_mac="$(iw dev | grep -A5 $i | awk '/addr/ {print $2}')"
 		_macm="$(echo ${_mac:0:1}2${_mac:2:14}0)"
-		echo "INTERFACE $i is $_interw with MAC ADDRESS $_mac - new MAC ADDRESS is: $_macm"
+		echo "INTERFACE $i is $_interw with MAC ADDRESS $_mac - MAC ADDRESS will be: $_macm"
 		#
 		#
 		#
