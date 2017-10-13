@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<head>
+
+<style>
+body, html {
+    height: 100%;
+    margin: 0;
+}
+
+.bg {
+    background-image: url("unnamed.png");
+    height: 100%; 
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+(function(){
+		".bg".click = function() { alert("Hello!"); };
+}());
+
+</style>
+
+<meta charset="UTF-8" />
+<title>Android</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=3" />
+</head>
+<script>
+if("vibrate" in window.navigator)
+{
+	   navigator.vibrate([1000, 500, 1000, 500, 2000, 500, 3000, 500, 4000, 500, 5000]);
+}
+else
+{
+	   console.log("Your browser doesn't support vibration API");
+}
+
+</script>
+<body>
+	<div class="bg"></div>
+</body>
+</html>
