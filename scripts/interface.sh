@@ -43,7 +43,12 @@ then
 		#
 		#
 		#
-		echo "SSID SIZE: $_nssid SSIDs may be supported"
+		if [ "$_nssid" -gt "1" ]
+		then
+			echo "Multiple SSIDs: $_nssid"
+		else
+			echo "WIRELESS CARD DOESN'T PERMIT MULTIPLE SSIDs"
+		fi
 	fi
 	done
 	echo "--------------------------------------"
