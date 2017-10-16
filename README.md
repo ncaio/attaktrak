@@ -1,8 +1,8 @@
-# [ attaktrak ]
+# [- attaktrak -]
 
-# [ introdução ]
+# [- introdução -]
 
-# [ INSTALAÇÃO ]
+# [- INSTALAÇÃO -]
 
 Este é o processo de instalação primitivo para o RaspCatchPi(nome temporário).  É composto por passos que, em um futuro não tão distante,  serão integrados a um processo simplificado. Um único script de instalação, para ser bem direto. Atualmente o projeto usa um repositório temporário onde já eram armazenadas informações relevantes ao assunto.
 	Para transformar um RaspberryPi, Laptop, Desktop ou Virtual Machine em um laboratório para prática de Wireless Phishing, os seguintes passos irão te auxiliar. Mas antes disso, é importante que os pré-requisitos sejam respeitados e implementados por você, exigindo alguns conhecimentos prévios em areas como Linux e Wifi, por exemplo.
@@ -82,9 +82,3 @@ Multiple SSIDs: 3
 # INSTALAÇÃO DEBIAN
 
 # INSTALAÇÃO DEBIAN / VIRTUALBOX
-
-# [ metodologia ]
-
-# [ dhcpd ]
-
-# [ Scripts ]
