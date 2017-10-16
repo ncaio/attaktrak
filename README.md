@@ -31,7 +31,8 @@ Multiple SSIDs: 3
 ```
 
 OBS: Se o seu adaptador suportar 2 ou mais SSIDs, você pode continuar com o processo de instalação. 
-INSTALAÇÃO RASPIAN 9 / RapsberryPi
+
+## INSTALAÇÃO RASPIAN 9 / RapsberryPi
 
 Os scripts e procedimentos foram realizados e homologados no Raspian 9, para ser mais exato, versão setembro de 2017, R.D.: 2017-09-07, Kernel 4.9. Que pode ser obtido em https://www.raspberrypi.org/downloads/raspbian/ e o procedimento de instalação, em: https://www.raspberrypi.org/documentation/installation/installing-images/README.md
 
