@@ -83,6 +83,6 @@ Multiple SSIDs: 3
 
 ## INSTALAÇÃO DEBIAN / VIRTUALBOX
 
-Procedimento bastante similar a instalação no Debian descrita neste documento. A principal diferença é o fato do mapeamento USB do seu adaptador Wireless. Este processo é bastante simples e deve ser realizado antes do início do processo de configuração. Na aba DEVICES, selecione USB. Identifique e selecione o seu adaptador Wifi na lista.
+Procedimento bastante similar a instalação no Debian descrita neste documento. A principal diferença é o fato do mapeamento USB do seu adaptador Wireless. Esta configuração é bastante simples e deve ser realizada antes do início do processo de configuração. Na aba DEVICES, selecione USB. Identifique e selecione o seu adaptador Wifi na lista.
 
 ![](http://8bit.academy/attaktrak/vb-usb.png)
