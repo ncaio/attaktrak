@@ -15,7 +15,7 @@ O guia mental é uma sequência de tarefas que incluem:
 - Criação das configurações via scripts (hostapd, dhcpd, interfaces ...);
 - Teste e Validação.
 
-# HARDWARE
+## HARDWARE
 
 A peça principal da engrenagem é o cartão adaptador Wireless (USB ou não). Tudo vai depender do seu cenário e de quais equipamentos você tem a disposição. Basicamente um computador com uma placa Wifi que permita o modo de operação ACCESS POINT(AP) e múltiplos (B)SSIDs. Como sei se meu adaptador suporta modo AP e múltiplos SSIDs ? Bem, existem ‘n’ formas de descobrir isso. Pesquisar sobre o modelo/chipset do equipamento em sites de busca na Internet é uma delas. No entanto, se você tiver disponível um cartão, seja ele integrado a placa mãe ou externo, você pode utilizar o script interface.sh para detectar os requisitos.
 
@@ -35,7 +35,7 @@ INSTALAÇÃO RASPIAN 9 / RapsberryPi
 
 Os scripts e procedimentos foram realizados e homologados no Raspian 9, para ser mais exato, versão setembro de 2017, R.D.: 2017-09-07, Kernel 4.9. Que pode ser obtido em https://www.raspberrypi.org/downloads/raspbian/ e o procedimento de instalação, em: https://www.raspberrypi.org/documentation/installation/installing-images/README.md
 
-# PACOTES
+## PACOTES
 
 ```sh
 # apt-get update
@@ -47,7 +47,7 @@ Os scripts e procedimentos foram realizados e homologados no Raspian 9, para ser
 # git clone https://github.com/ncaio/attaktrak.git /opt/attaktrak
 # cd /opt/attaktrak/scripts
 ```
-# INTERFACE WIRELESS E COMPATIBILIDADE
+## INTERFACE WIRELESS E COMPATIBILIDADE
 
 ```sh
 # bash interface.sh
@@ -60,13 +60,13 @@ Multiple SSIDs: 3
 --------------------------------------
 ```
 
-# HOSTAPD
+## HOSTAPD
 ```sh
 # bash hostapd-gen.sh wlan0  e2:a7:a0:51:e0:20 3 > /etc/hostapd/hostapd.conf
 # echo "DAEMON_CONF="/etc/hostapd/hostapd.conf"" >> /etc/default/hostapd
 ```
 
-# NETWORKING
+## NETWORKING
 
 ```sh
 # bash interface-gen.sh wlan0  e2:a7:a0:51:e0:20 3 >> /etc/network/interfaces
@@ -79,6 +79,6 @@ Multiple SSIDs: 3
 # echo “/usr/sbin/dhcpd -cf /etc/dhcp/dhcpd.conf” >> /etc/rc.local
 ```
 
-# INSTALAÇÃO DEBIAN
+## INSTALAÇÃO DEBIAN
 
-# INSTALAÇÃO DEBIAN / VIRTUALBOX
+## INSTALAÇÃO DEBIAN / VIRTUALBOX
