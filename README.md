@@ -82,3 +82,6 @@ Multiple SSIDs: 3
 ## INSTALAÇÃO DEBIAN
 
 ## INSTALAÇÃO DEBIAN / VIRTUALBOX
+
+
+![](http://8bit.academy/attaktrak/vb-usb.png)
