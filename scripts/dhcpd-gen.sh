@@ -24,6 +24,7 @@ ignore client-updates;
 authoritative;
 default-lease-time 600;
 max-lease-time 3600;
+option domain-name-servers 10.10.0.1;
 #
 #	/30 TO MANAGEMENT SSID
 #
