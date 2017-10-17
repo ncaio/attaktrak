@@ -36,7 +36,7 @@
 +  start)
 +	log_daemon_msg "Starting $DESC" "$NAME"
 +	start-stop-daemon --start --oknodo --quiet --exec "$DAEMON_SBIN" \
-+		--pidfile "$PIDFILE" -- $DAEMON_OPTS >/dev/null && sleep 5 && /etc/init.d/networking restart
++		--pidfile "$PIDFILE" -- $DAEMON_OPTS >/dev/null && sleep 5 && /etc/init.d/networking restart && /usr/sbin/dhcpd -cf /etc/dhcp/dhcpd.conf
 +	log_end_msg "$?"
 +	;;
 +  stop)
