@@ -4,8 +4,8 @@
 
 # [- INSTALAÇÃO -]
 
-Este é o processo de instalação primitivo para o RaspCatchPi(nome temporário).  É composto por passos que, em um futuro não tão distante,  serão integrados a um processo simplificado. Um único script de instalação, para ser bem direto. Atualmente o projeto usa um repositório temporário onde já eram armazenadas informações relevantes ao assunto.
-	Para transformar um RaspberryPi, Laptop, Desktop ou Virtual Machine em um laboratório para prática de Wireless Phishing, os seguintes passos irão te auxiliar. Mas antes disso, é importante que os pré-requisitos sejam respeitados e implementados por você, exigindo alguns conhecimentos prévios em areas como Linux e Wifi, por exemplo.
+Este é o processo de instalação primitivo para o (nome temporário).  É composto por passos que, em um futuro não tão distante,  serão integrados a um processo simplificado. Atualmente, o projeto usa um repositório temporário para armazenar informações relevantes ao assunto.
+Para transformar um RaspberryPi, Laptop, Desktop ou Virtual Machine em um laboratório para prática de Wireless Phishing, os seguintes passos irão te auxiliar. Mas antes disso, é importante que os pré-requisitos sejam respeitados e implementados por você, exigindo alguns conhecimentos prévios em areas como Linux e Wifi, por exemplo.
 
 O guia mental é uma sequência de tarefas que incluem:
 - Instalação do SO/OS;
@@ -17,7 +17,9 @@ O guia mental é uma sequência de tarefas que incluem:
 
 ## HARDWARE
 
-A peça principal da engrenagem é o cartão adaptador Wireless (USB ou não). Tudo vai depender do seu cenário e de quais equipamentos você tem a disposição. Basicamente um computador com uma placa Wifi que permita o modo de operação ACCESS POINT(AP) e múltiplos (B)SSIDs. Como sei se meu adaptador suporta modo AP e múltiplos SSIDs ? Bem, existem ‘n’ formas de descobrir isso. Pesquisar sobre o modelo/chipset do equipamento em sites de busca na Internet é uma delas. No entanto, se você tiver disponível um cartão, seja ele integrado a placa mãe ou externo, você pode utilizar o script interface.sh para detectar os requisitos.
+A peça principal da engrenagem é o cartão/adaptador Wireless (USB ou não). Tudo vai depender do seu cenário e de quais equipamentos você tem a disposição. Basicamente, um computador com uma placa Wifi que permita o modo de operação ACCESS POINT(AP) e múltiplos (B)SSIDs. 
+P: Como sei se meu adaptador suporta modo AP e múltiplos SSIDs ? 
+Bem, existem ‘n’ formas de descobrir isso. Pesquisar sobre o modelo/chipset do equipamento em sites de busca na Internet é uma delas. No entanto, se você tiver em mãos um cartão/adaptador Wireless + (Linux OS), seja ele integrado a placa mãe ou externo, você pode utilizar o script interface.sh para detectar os requisitos.
 
 ```sh
 # bash interface.sh
@@ -34,9 +36,11 @@ OBS: Se o seu adaptador suportar 2 ou mais SSIDs, você pode continuar com o pro
 
 ## INSTALAÇÃO RASPIAN 9 / RapsberryPi
 
-Os scripts e procedimentos foram realizados e homologados no Raspian 9, para ser mais exato, versão setembro de 2017, R.D.: 2017-09-07, Kernel 4.9. Que pode ser obtido em https://www.raspberrypi.org/downloads/raspbian/ e o procedimento de instalação, em: https://www.raspberrypi.org/documentation/installation/installing-images/README.md
+Os scripts e procedimentos foram homologados no Raspian 9, para ser mais exato: Versão setembro de 2017, R.D.: 2017-09-07, Kernel 4.9. Que pode ser obtido em https://www.raspberrypi.org/downloads/raspbian/ e o procedimento de instalação, em: https://www.raspberrypi.org/documentation/installation/installing-images/README.md
 
 ## PACOTES
+
+Os seguintes pacotes são necessários. Além da instalação, é preciso ativar o bind9 no processo de inicialização e retirar o isc-dhcp-server:
 
 ```sh
 # apt-get update
@@ -44,12 +48,19 @@ Os scripts e procedimentos foram realizados e homologados no Raspian 9, para ser
 # update-rc.d bin9 enable
 # update-rc.d isc-dhcp-server disable
 ```
+Baixando os arquivos deste repositório para /opt/attaktrak
+
 ```sh
 # git clone https://github.com/ncaio/attaktrak.git /opt/attaktrak
-# cd /opt/attaktrak/scripts
 ```
+
 ## INTERFACE WIRELESS E COMPATIBILIDADE
 
+Existe um script de nome interface localizado em /opt/attaktrak/scripts, que é responsável por detectar interfaces Wireless e apresentar uma saída informativa. Três campos são importantes neste momento, o campo 4 (interface), 12 (Mac Address Modificado) e a quantidade de multíplos SSID.
+
+```sh
+# cd /opt/attaktrak/scripts
+```
 ```sh
 # bash interface.sh
 --------------------------------------
@@ -60,20 +71,40 @@ INTERFACE phy#0 is wlan0 with MAC ADDRESS e4:a7:a0:51:e0:24 - MAC ADDRESS will b
 Multiple SSIDs: 3
 --------------------------------------
 ```
+Para dar continuidade no processo de instalação, é preciso que você seja capaz de identificar os campos acima citados.
 
 ## HOSTAPD
+
+Para a criação de um arquivo de configuração para o hostapd de acordo com a interface escolhida, utiliza-se o script hostapd-gen.sh que também está localizado em /opt/attaktrak/scripts
+
+A sintaxe do comando é:
+
+```sh
+# bash hostapd-gen.sh interface  macaddressmodificado numerodessids > /etc/hostapd/hostapd.conf
+```
+
+Observando a saída do script interface executado anteriormente, teremos como exemplo a criação a partir dos dados da interface wlan0 (phy#0)
+
+
 ```sh
 # bash hostapd-gen.sh wlan0  e2:a7:a0:51:e0:20 3 > /etc/hostapd/hostapd.conf
+```
+Informando o caminho do arquivo de configuração do hostadp ao processo de inicialização.
+
+```sh
 # echo "DAEMON_CONF="/etc/hostapd/hostapd.conf"" >> /etc/default/hostapd
 ```
 
 ## NETWORKING
+
+O Processo de configuração das interfaces de rede também é realizado por um script em /opt/attaktrak/scripts. O script interface-gen.sh recebe como parâmetros a interface, Mac Address modificado e quantidade de ssids possíveis. Todas essas informações foram obtidas na execução do script interface.sh
 
 ```sh
 # bash interface-gen.sh wlan0  e2:a7:a0:51:e0:20 3 >> /etc/network/interfaces
 ```
 
 # DHCP SERVER
+
 
 ```sh
 # bash dhcpd-gen.sh 3 > /etc/dhcp/dhcpd.conf
