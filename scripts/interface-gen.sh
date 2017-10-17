@@ -24,6 +24,14 @@ _bit="1"
 #
 #
 #
+_interc=$(echo $_interw | wc -c)
+if [ "$_interc" -gt 10 ]
+then
+	_interw="$(echo "$_interw" | cut -c1-5)"
+fi
+#
+#
+#
 for _i in $(seq 1 $(($_nssid-1)) )
 do
 	echo "#
