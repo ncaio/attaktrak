@@ -139,7 +139,7 @@ Exemplo de configuração /etc/apt/sources.list:
 deb http://ftp.de.debian.org/debian stretch main non-free
 ```
 
-A lista de pacotes a serem instalados, são?
+A lista de pacotes a serem instalados, são:
 
 ```sh
 apt-get update
