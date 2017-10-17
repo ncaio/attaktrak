@@ -13,7 +13,6 @@ echo "#
 auto $_interw
 allow-hotplug $_interw
 iface $_interw inet static
-hostapd /etc/hostapd/hostapd.conf
 address 10.10.0.1
 netmask 255.255.255.0
 pre-up ifconfig $_interw hw ether $_macm"
