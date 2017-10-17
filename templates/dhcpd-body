@@ -2,13 +2,13 @@
 #
 #
 subnet 10.10."$_bit".0 netmask 255.255.255.0 {
-on commit {
-        set ClientIP = binary-to-ascii(10, 8, ".", leased-address);
-        set ClientMac = binary-to-ascii(16, 8, ":", substring(hardware, 1, 6));
-        log(concat("Commit: IP: ", ClientIP, " Mac: ", ClientMac));
-        execute("/usr/local/scripts/script.sh", ClientIP, ClientMac, "$_ssid", option host-name);
-}
+#on commit {
+#        set ClientIP = binary-to-ascii(10, 8, ".", leased-address);
+#        set ClientMac = binary-to-ascii(16, 8, ":", substring(hardware, 1, 6));
+#        log(concat("Commit: IP: ", ClientIP, " Mac: ", ClientMac));
+#        execute("/usr/local/scripts/script.sh", ClientIP, ClientMac, "$_ssid", option host-name);
+#}
   range 10.10."$_bit".10 10.10."$_bit".254;
   option routers 10.10."$_bit".1;
+  option domain-name-servers 10.10."$_bit".1;
 }
-
