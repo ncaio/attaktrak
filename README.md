@@ -118,6 +118,11 @@ Também encontrado no /opt/attaktrak/scripts, o gerador de configuração do dhc
 ```sh
 bash dhcpd-gen.sh 3 > /etc/dhcp/dhcpd.conf
 ```
+Desabilitar o dhcp server da inicialização. Este processo será executado pelo hostadp
+
+```ssh
+update-rc.d isc-dhcp-server disable
+```
 
 Realizar o processo de restart (shutdown -r now)
 
