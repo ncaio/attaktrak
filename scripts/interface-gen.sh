@@ -12,7 +12,7 @@ echo "#
 #
 auto $_interw
 allow-hotplug $_interw
-iface wlan0 inet static
+iface $_interw inet static
 hostapd /etc/hostapd/hostapd.conf
 address 10.10.0.1
 netmask 255.255.255.0
