@@ -38,7 +38,7 @@ OBS: Se o seu adaptador suportar 2 ou mais SSIDs, você pode continuar com o pro
 
 Os scripts e procedimentos foram homologados no Raspian 9, para ser mais exato: Versão setembro de 2017, R.D.: 2017-09-07, Kernel 4.9. Que pode ser obtido em https://www.raspberrypi.org/downloads/raspbian/ e o procedimento de instalação, em: https://www.raspberrypi.org/documentation/installation/installing-images/README.md
 
-## PACOTES
+### PACOTES
 
 Os seguintes pacotes são necessários. Além da instalação, é preciso ativar o bind9 no processo de inicialização e retirar o isc-dhcp-server:
 
@@ -54,7 +54,7 @@ Baixando os arquivos deste repositório para /opt/attaktrak
 # git clone https://github.com/ncaio/attaktrak.git /opt/attaktrak
 ```
 
-## INTERFACE WIRELESS E COMPATIBILIDADE
+### INTERFACE WIRELESS E COMPATIBILIDADE
 
 Existe um script de nome interface localizado em /opt/attaktrak/scripts, que é responsável por detectar interfaces Wireless e apresentar uma saída informativa. Três campos são importantes neste momento, o campo 4 (interface), 12 (Mac Address Modificado) e a quantidade de multíplos SSID.
 
@@ -73,7 +73,7 @@ Multiple SSIDs: 3
 ```
 Para dar continuidade no processo de instalação, é preciso que você seja capaz de identificar os campos acima citados.
 
-## HOSTAPD
+### HOSTAPD
 
 Para a criação de um arquivo de configuração para o hostapd de acordo com a interface escolhida, utiliza-se o script hostapd-gen.sh que também está localizado em /opt/attaktrak/scripts
 
@@ -95,7 +95,7 @@ Informando o caminho do arquivo de configuração do hostadp ao processo de inic
 # echo "DAEMON_CONF="/etc/hostapd/hostapd.conf"" >> /etc/default/hostapd
 ```
 
-## NETWORKING
+### NETWORKING
 
 O Processo de configuração das interfaces de rede também é realizado por um script em /opt/attaktrak/scripts. O script interface-gen.sh recebe como parâmetros a interface, Mac Address modificado e quantidade de ssids possíveis. Todas essas informações foram obtidas na execução do script interface.sh
 
@@ -103,7 +103,7 @@ O Processo de configuração das interfaces de rede também é realizado por um 
 # bash interface-gen.sh wlan0  e2:a7:a0:51:e0:20 3 >> /etc/network/interfaces
 ```
 
-# DHCP SERVER
+### DHCP SERVER
 
 
 ```sh
