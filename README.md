@@ -98,6 +98,12 @@ Informando o caminho do arquivo de configuração do hostadp ao processo de inic
 echo "DAEMON_CONF="/etc/hostapd/hostapd.conf"" >> /etc/default/hostapd
 ```
 
+Aplicar o patch no /etc/init.d/hostapd
+
+```ssh
+patch /etc/init.d/hostapd < /opt/attaktrak/templates/hostapd.patch
+```
+
 ### NETWORKING
 
 O processo de configuração das interfaces de rede também é realizado por um script em /opt/attaktrak/scripts. O script interface-gen.sh recebe como parâmetros a interface, Mac Address modificado e quantidade de ssids possíveis. Todas essas informações foram obtidas na execução do script interface.sh
@@ -118,6 +124,8 @@ A execução do dhcpd será por último no processo de inicialização, no arqui
 ```sh
 echo “/usr/sbin/dhcpd -cf /etc/dhcp/dhcpd.conf” >> /etc/rc.local
 ```
+
+Realizar o processo de restart (shutdown -r now)
 
 ## INSTALAÇÃO DEBIAN
 
