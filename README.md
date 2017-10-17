@@ -46,7 +46,6 @@ Os seguintes pacotes são necessários. Além da instalação, é preciso ativar
 apt-get update
 apt-get install isc-dhcp-server hostapd git nginx bind9
 update-rc.d bin9 enable
-update-rc.d isc-dhcp-server disable
 ```
 Baixando os arquivos deste repositório para /opt/attaktrak
 
@@ -119,11 +118,6 @@ Também encontrado no /opt/attaktrak/scripts, o gerador de configuração do dhc
 ```sh
 bash dhcpd-gen.sh 3 > /etc/dhcp/dhcpd.conf
 ```
-A execução do dhcpd será por último no processo de inicialização, no arquivo rc.local.
-
-```sh
-echo “/usr/sbin/dhcpd -cf /etc/dhcp/dhcpd.conf” >> /etc/rc.local
-```
 
 Realizar o processo de restart (shutdown -r now)
 
@@ -145,32 +139,7 @@ A lista de pacotes a serem instalados, são?
 ```sh
 apt-get update
 apt-get install isc-dhcp-server hostapd git nginx bind9 iw net-tools wireless-tools firmware-misc-nonfree
-```
-
-Baixando os arquivos deste repositório para /opt/attaktrak
-
-```sh
-git clone https://github.com/ncaio/attaktrak.git /opt/attaktrak
-```
-
-### DHCP SERVER
-
-A execução do dhcpd será por último no processo de inicialização, no arquivo rc.local. Assim como no processo de instalação no RasPian. Mudando apenas a forma de criação do rc.local
-
-```sh
-chmod +x /etc/rc.local
-```
-
-Exemplo de rc.local para Debian
-
-```sh
-#!/bin/bash
-#
-# rc.local
-#
-sleep 5
-echo "dhcpd starting"
-/usr/sbin/dhcpd -cf /etc/dhcp/dhcpd.conf
+update-rc.d bin9 enable
 ```
 
 ## INSTALAÇÃO DEBIAN / VIRTUALBOX
