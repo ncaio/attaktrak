@@ -36,7 +36,7 @@
 +  start)
 +	log_daemon_msg "Starting $DESC" "$NAME"
 +	start-stop-daemon --start --oknodo --quiet --exec "$DAEMON_SBIN" \
-+		--pidfile "$PIDFILE" -- $DAEMON_OPTS >/dev/null && /etc/init.d/networking restart && /etc/init.d/hostapd reload
++		--pidfile "$PIDFILE" -- $DAEMON_OPTS >/dev/null && sleep 5 && /etc/init.d/networking restart
 +	log_end_msg "$?"
 +	;;
 +  stop)
