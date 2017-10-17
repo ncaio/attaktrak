@@ -22,7 +22,7 @@ P: Como sei se meu adaptador suporta modo AP e múltiplos SSIDs ?
 Bem, existem ‘n’ formas de descobrir isso. Pesquisar sobre o modelo/chipset do equipamento em sites de busca na Internet é uma delas. No entanto, se você tiver em mãos um cartão/adaptador Wireless + (Linux OS), seja ele integrado a placa mãe ou externo, você pode utilizar o script interface.sh para detectar os requisitos.
 
 ```sh
-# bash interface.sh
+bash interface.sh
 --------------------------------------
 INTERFACE phy#38 is wlan2 with MAC ADDRESS 00:1d:0f:a5:4d:3c - MAC ADDRESS will be: 02:1d:0f:a5:4d:30
 Multiple SSIDs: 4
@@ -43,15 +43,15 @@ Os scripts e procedimentos foram homologados no Raspian 9, para ser mais exato: 
 Os seguintes pacotes são necessários. Além da instalação, é preciso ativar o bind9 no processo de inicialização e retirar o isc-dhcp-server:
 
 ```sh
-# apt-get update
-# apt-get install isc-dhcp-server hostapd git nginx bind9
-# update-rc.d bin9 enable
-# update-rc.d isc-dhcp-server disable
+apt-get update
+apt-get install isc-dhcp-server hostapd git nginx bind9
+update-rc.d bin9 enable
+update-rc.d isc-dhcp-server disable
 ```
 Baixando os arquivos deste repositório para /opt/attaktrak
 
 ```sh
-# git clone https://github.com/ncaio/attaktrak.git /opt/attaktrak
+git clone https://github.com/ncaio/attaktrak.git /opt/attaktrak
 ```
 
 ### INTERFACE WIRELESS E COMPATIBILIDADE
@@ -59,10 +59,13 @@ Baixando os arquivos deste repositório para /opt/attaktrak
 Existe um script de nome interface localizado em /opt/attaktrak/scripts, que é responsável por detectar interfaces Wireless e apresentar uma saída informativa. Três campos são importantes neste momento, o campo 4 (interface), 12 (Mac Address Modificado) e a quantidade de multíplos SSID.
 
 ```sh
-# cd /opt/attaktrak/scripts
+cd /opt/attaktrak/scripts
 ```
+
+Executando o script:
+
 ```sh
-# bash interface.sh
+bash interface.sh
 --------------------------------------
 INTERFACE phy#38 is wlan2 with MAC ADDRESS 00:1d:0f:a5:4d:3c - MAC ADDRESS will be: 02:1d:0f:a5:4d:30
 Multiple SSIDs: 4
@@ -80,38 +83,87 @@ Para a criação de um arquivo de configuração para o hostapd de acordo com a 
 A sintaxe do comando é:
 
 ```sh
-# bash hostapd-gen.sh interface  macaddressmodificado numerodessids > /etc/hostapd/hostapd.conf
+bash hostapd-gen.sh interface  macaddressmodificado numerodessids > /etc/hostapd/hostapd.conf
 ```
 
 Observando a saída do script interface executado anteriormente, teremos como exemplo a criação a partir dos dados da interface wlan0 (phy#0)
 
 
 ```sh
-# bash hostapd-gen.sh wlan0  e2:a7:a0:51:e0:20 3 > /etc/hostapd/hostapd.conf
+bash hostapd-gen.sh wlan0  e2:a7:a0:51:e0:20 3 > /etc/hostapd/hostapd.conf
 ```
 Informando o caminho do arquivo de configuração do hostadp ao processo de inicialização.
 
 ```sh
-# echo "DAEMON_CONF="/etc/hostapd/hostapd.conf"" >> /etc/default/hostapd
+echo "DAEMON_CONF="/etc/hostapd/hostapd.conf"" >> /etc/default/hostapd
 ```
 
 ### NETWORKING
 
-O Processo de configuração das interfaces de rede também é realizado por um script em /opt/attaktrak/scripts. O script interface-gen.sh recebe como parâmetros a interface, Mac Address modificado e quantidade de ssids possíveis. Todas essas informações foram obtidas na execução do script interface.sh
+O processo de configuração das interfaces de rede também é realizado por um script em /opt/attaktrak/scripts. O script interface-gen.sh recebe como parâmetros a interface, Mac Address modificado e quantidade de ssids possíveis. Todas essas informações foram obtidas na execução do script interface.sh
 
 ```sh
-# bash interface-gen.sh wlan0  e2:a7:a0:51:e0:20 3 >> /etc/network/interfaces
+bash interface-gen.sh wlan0  e2:a7:a0:51:e0:20 3 >> /etc/network/interfaces
 ```
 
 ### DHCP SERVER
 
+Também encontrado no /opt/attaktrak/scripts, o gerador de configuração do dhcp server precisa de um único parâmetro, quantidade de SIDDS encontrados na execução do script interface.sh
 
 ```sh
-# bash dhcpd-gen.sh 3 > /etc/dhcp/dhcpd.conf
-# echo “/usr/sbin/dhcpd -cf /etc/dhcp/dhcpd.conf” >> /etc/rc.local
+bash dhcpd-gen.sh 3 > /etc/dhcp/dhcpd.conf
+```
+A execução do dhcpd será por último no processo de inicialização, no arquivo rc.local.
+
+```sh
+echo “/usr/sbin/dhcpd -cf /etc/dhcp/dhcpd.conf” >> /etc/rc.local
 ```
 
 ## INSTALAÇÃO DEBIAN
+
+O procedimento de instalação no Debian é bastante similar ao do RasPian. Esta sessão apresenta apenas as mudanças entre os tópicos de instalação RasPian vs Debian.
+
+### Pacotes
+Para a instalação de pacotes no Debian, é preciso modificar o /etc/apt/sources.list e adicionar o repositório de pacotes non-free. Nele estão os drivers proprietário para adaptadores Wireless, por exemplo.
+
+Exemplo de configuração /etc/apt/sources.list:
+
+```
+deb http://ftp.de.debian.org/debian stretch main non-free
+```
+
+A lista de pacotes a serem instalados, são?
+
+```sh
+apt-get update
+apt-get install isc-dhcp-server hostapd git nginx bind9 iw net-tools wireless-tools firmware-misc-nonfree
+```
+
+Baixando os arquivos deste repositório para /opt/attaktrak
+
+```sh
+git clone https://github.com/ncaio/attaktrak.git /opt/attaktrak
+```
+
+### DHCP SERVER
+
+A execução do dhcpd será por último no processo de inicialização, no arquivo rc.local. Assim como no processo de instalação no RasPian. Mudando apenas a forma de criação do rc.local
+
+```sh
+chmod +x /etc/rc.local
+```
+
+Exemplo de rc.local para Debian
+
+```sh
+#!/bin/bash
+#
+# rc.local
+#
+sleep 5
+echo "dhcpd starting"
+/usr/sbin/dhcpd -cf /etc/dhcp/dhcpd.conf
+```
 
 ## INSTALAÇÃO DEBIAN / VIRTUALBOX
 
