@@ -144,7 +144,7 @@ A lista de pacotes a serem instalados, são:
 ```sh
 apt-get update
 apt-get install isc-dhcp-server hostapd git nginx bind9 iw net-tools wireless-tools firmware-misc-nonfree
-update-rc.d bin9 enable
+update-rc.d bind9 enable
 ```
 
 ## INSTALAÇÃO DEBIAN / VIRTUALBOX
